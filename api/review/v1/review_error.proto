@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+// 项目错误码定义，可以参考kratos官方文档 https://go-kratos.dev/docs/component/errors
+// 在这里定义完，也要去makefile中添加命令，直接参考官方文档即可(但是自己需要参考其他make命令，写一下.PHONY这些)
+
+
+package api.review.v1;
+import "errors/errors.proto";
+
+// 下面的这三行可以参考review.proto
+option go_package = "review-service/api/review/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.review.v1";
+
+enum ErrorReason {
+    // 设置缺省错误码
+    option (errors.default_code) = 500;
+
+    // 为某个枚举单独设置错误码
+    NEED_LOGIN = 0 [(errors.code) = 401];
+    DB_FAILED = 1 [(errors.code)=500];
+
+    ORDER_REVIEWED = 100 [(errors.code) = 400]; // 订单已经评价过
+    REVIEW_REPLYED = 101 [(errors.code)=400];// 评价已经被（商家）回复过
+    CANNOT_REPLY_OHTER_STORE_REVIEW=102 [(errors.code)=400]; // 商家不能回复另一个商家的评论
+}
