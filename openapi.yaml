@@ -151,6 +151,16 @@ paths:
                   required: true
                   schema:
                     type: string
+                - name: page
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+                - name: size
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
             responses:
                 "200":
                     description: OK
@@ -177,7 +187,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.business.v1.AppealReviewReply'
-    business/v1/review/reply:
+    b/v1/review/reply:
         post:
             tags:
                 - Business
@@ -336,14 +346,14 @@ components:
             description: AppealReviewRequest 申诉评价的请求参数
         api.review.v1.AuditAppealReply:
             type: object
-            properties:
-                appealId:
-                    type: string
+            properties: {}
             description: 对申诉进行审核的返回值
         api.review.v1.AuditAppealRequest:
             type: object
             properties:
                 appealId:
+                    type: string
+                reviewId:
                     type: string
                 status:
                     type: integer
@@ -382,12 +392,15 @@ components:
             properties:
                 reviewId:
                     type: string
+            description: 创建评价的回复
         api.review.v1.CreateReviewRequest:
             type: object
             properties:
                 userId:
                     type: string
                 orderId:
+                    type: string
+                storeId:
                     type: string
                 score:
                     type: integer
@@ -400,13 +413,13 @@ components:
                     format: int32
                 content:
                     type: string
-                pictureInfo:
+                picInfo:
                     type: string
                 videoInfo:
                     type: string
                 anonymous:
                     type: boolean
-            description: 字段最好还是按照规范来，用snake_case
+            description: 创建评价的参数
         api.review.v1.GetReviewReply:
             type: object
             properties:

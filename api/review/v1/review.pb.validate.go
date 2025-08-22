@@ -79,6 +79,17 @@ func (m *CreateReviewRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if m.GetStoreId() <= 0 {
+		err := CreateReviewRequestValidationError{
+			field:  "StoreId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if _, ok := _CreateReviewRequest_Score_InLookup[m.GetScore()]; !ok {
 		err := CreateReviewRequestValidationError{
 			field:  "Score",
@@ -123,7 +134,7 @@ func (m *CreateReviewRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for PictureInfo
+	// no validation rules for PicInfo
 
 	// no validation rules for VideoInfo
 
@@ -1478,6 +1489,17 @@ func (m *AuditAppealRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if m.GetReviewId() <= 0 {
+		err := AuditAppealRequestValidationError{
+			field:  "ReviewId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if m.GetStatus() <= 0 {
 		err := AuditAppealRequestValidationError{
 			field:  "Status",
@@ -1606,8 +1628,6 @@ func (m *AuditAppealReply) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for AppealId
-
 	if len(errors) > 0 {
 		return AuditAppealReplyMultiError(errors)
 	}
@@ -1711,6 +1731,28 @@ func (m *ListReviewByUserIDRequest) validate(all bool) error {
 	if m.GetUserId() <= 0 {
 		err := ListReviewByUserIDRequestValidationError{
 			field:  "UserId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetPage() <= 0 {
+		err := ListReviewByUserIDRequestValidationError{
+			field:  "Page",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetSize() <= 0 {
+		err := ListReviewByUserIDRequestValidationError{
+			field:  "Size",
 			reason: "value must be greater than 0",
 		}
 		if !all {
